@@ -1,10 +1,3 @@
-//
-//  ViewController.swift
-//  Uber
-//
-//  Created by Johnny Perdomo on 6/24/18.
-//  Copyright © 2018 Johnny Perdomo. All rights reserved.
-//
 
 import UIKit
 import SideMenu
@@ -21,9 +14,13 @@ class SideMenuController: UIViewController {
     var homeLocation: [NSManagedObject] = []
     var workLocation: [NSManagedObject] = []
     
+    
+    //MARK: View Life cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        sideMenuCustom()
+        //FIXME:
+        //sideMenuCustom()
         imageView.layer.cornerRadius = imageView.frame.height / 2
         
         fetchHomeFavorite()
@@ -45,8 +42,11 @@ class SideMenuController: UIViewController {
         present(recentTripsVC!, animated: true, completion: nil)
     }
     
-    func sideMenuCustom() { //Draws the menuAnimationBackgroundColor behind the status bar. Default is true.
-        sideMenu.menuFadeStatusBar = false
+    func sideMenuCustom() {
+        //Draws the menuAnimationBackgroundColor behind the status bar. Default is true.
+        
+        //FIXME: 'menuFadeStatusBar' is deprecated: This property has been moved to the UISideMenuNavigationController class.
+        //sideMenu.menuFadeStatusBar = false
     }
     
 }
@@ -55,7 +55,7 @@ extension SideMenuController { //Core Data Functions
     
     func fetchHomeFavorite() {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-        let managedContext = appDelegate.persistentContainer.viewContext //need a managed object
+        let managedContext = appDelegate.persistentContainer.viewContext 
         let fetchRequest = NSFetchRequest <NSManagedObject>(entityName: "HomeFavorite")
         
         do {
@@ -79,7 +79,7 @@ extension SideMenuController { //Core Data Functions
     
     func fetchWorkFavorite() {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-        let managedContext = appDelegate.persistentContainer.viewContext //need a managed object
+        let managedContext = appDelegate.persistentContainer.viewContext 
         let fetchRequest = NSFetchRequest <NSManagedObject>(entityName: "WorkFavorite")
         
         do {

@@ -64,6 +64,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0CC7B8DF2318698D0051904E /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				FEAD530020E0874F007E3EA3 /* AppDelegate.swift */,
+				FEAD530A20E08750007E3EA3 /* Assets.xcassets */,
+				FEAD530C20E08750007E3EA3 /* LaunchScreen.storyboard */,
+				FEAD530F20E08750007E3EA3 /* Info.plist */,
+				FEAD530720E0874F007E3EA3 /* Uber.xcdatamodeld */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		C3FC42937494E45182667FBD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -105,12 +117,7 @@
 				FEB47A2C20E19682000A6A4F /* Helpers */,
 				FEB47A2720E180E9000A6A4F /* Views */,
 				FEB47A2920E180FA000A6A4F /* Controller */,
-				FEAD530420E0874F007E3EA3 /* Main.storyboard */,
-				FEAD530020E0874F007E3EA3 /* AppDelegate.swift */,
-				FEAD530A20E08750007E3EA3 /* Assets.xcassets */,
-				FEAD530C20E08750007E3EA3 /* LaunchScreen.storyboard */,
-				FEAD530F20E08750007E3EA3 /* Info.plist */,
-				FEAD530720E0874F007E3EA3 /* Uber.xcdatamodeld */,
+				0CC7B8DF2318698D0051904E /* Common */,
 			);
 			path = Uber;
 			sourceTree = "<group>";
@@ -118,6 +125,7 @@
 		FEB47A2720E180E9000A6A4F /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				FEAD530420E0874F007E3EA3 /* Main.storyboard */,
 				FE0A831720E443100082B235 /* SearchCompletionCell.swift */,
 				FE54D45720E7052700663E93 /* RecentSearchCell.swift */,
 				FE65205220ED7FD700A7F084 /* CustomPointAnnotation.swift */,
@@ -222,17 +230,16 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-Uber/Pods-Uber-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/SideMenu/SideMenu.framework",
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Uber/Pods-Uber-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SideMenu.framework",
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Uber/Pods-Uber-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Uber/Pods-Uber-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Uber/Pods-Uber-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		75761DFF4FB76B2FAE68D9AA /* [CP] Check Pods Manifest.lock */ = {
@@ -350,12 +357,13 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
 		};
@@ -404,11 +412,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -419,16 +428,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = JX3EAWJE5N;
-				INFOPLIST_FILE = Uber/Info.plist;
+				DEVELOPMENT_TEAM = 2SSXL2WVNB;
+				INFOPLIST_FILE = "$(SRCROOT)/Uber/Common/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.johnnyperdomo.Uber;
+				PRODUCT_BUNDLE_IDENTIFIER = bretsko;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -439,16 +448,16 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = JX3EAWJE5N;
-				INFOPLIST_FILE = Uber/Info.plist;
+				DEVELOPMENT_TEAM = 2SSXL2WVNB;
+				INFOPLIST_FILE = "$(SRCROOT)/Uber/Common/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 11.3;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.johnnyperdomo.Uber;
+				PRODUCT_BUNDLE_IDENTIFIER = bretsko;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

@@ -1,18 +1,11 @@
-//
-//  PickDestinationVC.swift
-//  Uber
-//
-//  Created by Johnny Perdomo on 6/27/18.
-//  Copyright © 2018 Johnny Perdomo. All rights reserved.
-//
 
 import UIKit
 import CoreData
 import MapKit
 
 class PickDestinationVC: UIViewController {
-
-    //IBOutlets
+    
+    //MARK: IBOutlets
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var searchTableView: UITableView!
     @IBOutlet weak var quickAccessView: UIView!
@@ -23,7 +16,6 @@ class PickDestinationVC: UIViewController {
     @IBOutlet weak var recentTableView: UITableView!
     @IBOutlet weak var recentSearchesLabel: UILabel!
     
-    //Core Data Objects
     var homeLocation: [NSManagedObject] = []
     var workLocation: [NSManagedObject] = []
     var recentSearches: [NSManagedObject] = []
@@ -48,7 +40,7 @@ class PickDestinationVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        
         fetchHomeFavorite()
         fetchWorkFavorite()
         fetchRecentSearches()
@@ -61,10 +53,10 @@ class PickDestinationVC: UIViewController {
         } else {
             recentSearchesLabel.isHidden = false
         }
-
     }
     
-    //IBActions
+    //MARK: IBActions
+    
     @IBAction func backBtnPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
@@ -81,7 +73,6 @@ class PickDestinationVC: UIViewController {
             savePickedLocations(address: searchBar.text!)
             dismiss(animated: true, completion: nil)
         }
-        
     }
     
     @IBAction func workBtnPressed(_ sender: Any) {
@@ -99,13 +90,15 @@ class PickDestinationVC: UIViewController {
     }
     
 }
-    
+
 
 extension PickDestinationVC { //Core data Functions
     
     func fetchHomeFavorite() {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-        let managedContext = appDelegate.persistentContainer.viewContext //need a managed object
+        let managedContext = appDelegate.persistentContainer.viewContext
+        
+        
         let fetchRequest = NSFetchRequest <NSManagedObject>(entityName: "HomeFavorite")
         
         do {
@@ -124,12 +117,12 @@ extension PickDestinationVC { //Core data Functions
         } catch {
             print("Could not fetch. \(error.localizedDescription)")
         }
-        
     }
     
     func fetchRecentSearches() {
+        
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-        let managedContext = appDelegate.persistentContainer.viewContext //need a managed object
+        let managedContext = appDelegate.persistentContainer.viewContext 
         let fetchRequest = NSFetchRequest <NSManagedObject>(entityName: "RecentSearches")
         
         do {
@@ -141,8 +134,9 @@ extension PickDestinationVC { //Core data Functions
     }
     
     func fetchWorkFavorite() {
+        
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-        let managedContext = appDelegate.persistentContainer.viewContext //need a managed object
+        let managedContext = appDelegate.persistentContainer.viewContext 
         let fetchRequest = NSFetchRequest <NSManagedObject>(entityName: "WorkFavorite")
         
         do {
@@ -161,7 +155,6 @@ extension PickDestinationVC { //Core data Functions
         } catch {
             print("Could not fetch. \(error.localizedDescription)")
         }
-        
     }
     
     func saveRecentSearch(address: String) {
@@ -175,12 +168,11 @@ extension PickDestinationVC { //Core data Functions
         
         do {
             try managedContext.save()
-            recentSearches.append(recentSearch) //add it to array
+            recentSearches.append(recentSearch) 
             print("save recent Search Success")
         } catch {
             print("Could not save. \(error.localizedDescription)")
         }
-        
     }
     
     func savePickedLocations(address: String) {
@@ -194,98 +186,101 @@ extension PickDestinationVC { //Core data Functions
         
         do {
             try managedContext.save()
-            pickedLocations.append(pickedAddress) //add it to array
+            pickedLocations.append(pickedAddress) 
             print("save Picked Location Success")
         } catch {
             print("Could not save. \(error.localizedDescription)")
         }
     }
-    
 }
 
-extension PickDestinationVC: UITableViewDelegate, UITableViewDataSource { //TableViews - 2 TableViews in 1 View Controller: Specify self.TableView
+extension PickDestinationVC: UITableViewDelegate, UITableViewDataSource {
     
+    //TableViews - 2 TableViews in 1 View Controller: Specify self.TableView
     func numberOfSections(in tableView: UITableView) -> Int {
         
-        var count: Int?
-        
-        if tableView == self.recentTableView {
+        let count: Int
+        if tableView == recentTableView {
             count = 1
-        }
-        
-        if tableView == self.searchTableView {
+        } else if tableView == searchTableView {
             count = 1
+        } else {
+            fatalError()
         }
-        
-        return count!
+        return count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        var count: Int?
         
-        if tableView == self.searchTableView {
+        let count: Int
+        
+        if tableView == searchTableView {
             count = searchResults.count
-        }
-
-        if tableView == self.recentTableView {
+            
+        } else if tableView == recentTableView {
             
             if recentSearches.count < 3 {
                 count = recentSearches.count
             } else {
                 count = 3
             }
+        } else {
+            fatalError()
         }
         
-        return count!
+        return count
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        var cells: UITableViewCell?
+        let cellForRow: UITableViewCell
         
-        if tableView == self.searchTableView {
+        if tableView == searchTableView {
             guard let cell = searchTableView.dequeueReusableCell(withIdentifier: "searchCompletionCell", for: indexPath) as? SearchCompletionCell else {return UITableViewCell()}
             let searchResult = searchResults[indexPath.row]
             
             cell.textLbl.text = searchResult.title
             cell.detailTxtLbl.text = searchResult.subtitle
-            cells = cell
-        }
-        
-        if tableView == self.recentTableView {
-
+            cellForRow = cell
+            
+        } else if tableView == recentTableView {
+            
             if recentSearches.count == 0 {
                 guard let cell = recentTableView.dequeueReusableCell(withIdentifier: "recentSearchCell", for: indexPath) as? RecentSearchCell else {return UITableViewCell()}
                 
                 recentTableView.isHidden = true
                 
-                cells = cell
+                cellForRow = cell
                 
-            } else if recentSearches.count > 0 {
+            } else {
+                //if recentSearches.count > 0
                 guard let cell = recentTableView.dequeueReusableCell(withIdentifier: "recentSearchCell", for: indexPath) as? RecentSearchCell else {return UITableViewCell()}
                 
                 recentTableView.isHidden = false
                 
                 let recentPlace = recentSearches[indexPath.row]
                 let address = recentPlace.value(forKey: "address") as? String
-
+                
                 cell.configureCell(addressLbl: address!)
-
+                
                 cell.layer.cornerRadius = 15
                 cell.layer.borderColor = #colorLiteral(red: 0.3764705882, green: 0.6274509804, blue: 0.9019607843, alpha: 1)
                 cell.layer.borderWidth = 2
                 
-                cells = cell
+                cellForRow = cell
             }
+        } else {
+            fatalError()
         }
-    
-        return cells!
+        
+        return cellForRow
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView,
+                    didSelectRowAt indexPath: IndexPath) {
         
-        if tableView == self.searchTableView {
+        if tableView == searchTableView {
             let indexPath = tableView.indexPathForSelectedRow
             let currentCell = tableView.cellForRow(at: indexPath!) as! SearchCompletionCell
             
@@ -298,9 +293,8 @@ extension PickDestinationVC: UITableViewDelegate, UITableViewDataSource { //Tabl
             
             print("search cell clicked")
             dismiss(animated: true, completion: nil)
-        }
-        
-        if tableView == self.recentTableView {
+            
+        } else if tableView == recentTableView {
             let indexPath = tableView.indexPathForSelectedRow
             let currentCell = tableView.cellForRow(at: indexPath!) as! RecentSearchCell
             
@@ -311,14 +305,13 @@ extension PickDestinationVC: UITableViewDelegate, UITableViewDataSource { //Tabl
             
             print("recent history cell clicked")
             dismiss(animated: true, completion: nil)
-            
         }
     }
-    
 }
 
-
-extension PickDestinationVC: MKLocalSearchCompleterDelegate { //Local Search Completer for search bar: Auto completes locations / addresses that user starts typing
+extension PickDestinationVC: MKLocalSearchCompleterDelegate {
+    
+    //Local Search Completer for search bar: Auto completes locations / addresses that user starts typing
     
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
         searchResults = completer.results
@@ -326,7 +319,7 @@ extension PickDestinationVC: MKLocalSearchCompleterDelegate { //Local Search Com
     }
 }
 
-extension PickDestinationVC: UISearchBarDelegate { //Search Bar
+extension PickDestinationVC: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         

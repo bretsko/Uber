@@ -1,20 +1,15 @@
-//
-//  RecentTripsVC.swift
-//  Uber
-//
-//  Created by Johnny Perdomo on 7/6/18.
-//  Copyright © 2018 Johnny Perdomo. All rights reserved.
-//
+
 
 import UIKit
 import CoreData
 
 class RecentTripsVC: UIViewController {
 
-    //IBOutlets
+    //MARK: IBOutlets
+    
     @IBOutlet weak var tripsTableView: UITableView!
     
-    var tripDetails: [NSManagedObject] = [] //Core Data Object
+    var tripDetails: [NSManagedObject] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,14 +19,14 @@ class RecentTripsVC: UIViewController {
         fetchTripDetails()
     }
 
-    //IBActions
+    //MARK: IBActions
+    
     @IBAction func backBtnPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
-    
 }
 
-extension RecentTripsVC: UITableViewDelegate, UITableViewDataSource { //Table Views
+extension RecentTripsVC: UITableViewDelegate, UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -67,10 +62,13 @@ extension RecentTripsVC: UITableViewDelegate, UITableViewDataSource { //Table Vi
     }
 }
 
-extension RecentTripsVC { //Core Data
+//Core Data
+extension RecentTripsVC {
+    
     func fetchTripDetails() {
+        
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-        let managedContext = appDelegate.persistentContainer.viewContext //need a managed object
+        let managedContext = appDelegate.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest <NSManagedObject>(entityName: "TripDetails")
         
         do {

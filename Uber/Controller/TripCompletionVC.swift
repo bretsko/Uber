@@ -1,17 +1,12 @@
-//
-//  TripCompletionVC.swift
-//  Uber
-//
-//  Created by Johnny Perdomo on 7/5/18.
-//  Copyright © 2018 Johnny Perdomo. All rights reserved.
-//
+
 
 import UIKit
 import CoreData
 
 class TripCompletionVC: UIViewController {
 
-    //IBOutlets
+    //MARK: IBOutlets
+    
     @IBOutlet weak var dateTimeLbl: UILabel!
     @IBOutlet weak var driverImage: UIImageView!
     @IBOutlet weak var driverName: UILabel!
@@ -25,7 +20,7 @@ class TripCompletionVC: UIViewController {
     @IBOutlet weak var pickupLbl: UILabel!
     @IBOutlet weak var dropoffLbl: UILabel!
     
-    var tripDetails: [NSManagedObject] = [] //Core Data Object
+    var tripDetails: [NSManagedObject] = []
 
     //values to store trip completion values
     var riders = String()
@@ -55,13 +50,15 @@ class TripCompletionVC: UIViewController {
         dateTimeLbl.text = "\(fullDate)"
     }
     
-    //IBActions
+    //MARK: IBActions
+    
     @IBAction func completeBtnPressed(_ sender: Any) {
          saveTrip()
          dismiss(animated: true, completion: nil)
     }
     
-    //Functions
+    //MARK: Functions
+    
     func initTripDetails(riders: String, price: String, tripTime: String, carType: String, pickUp: String, dropOff: String) { //transfer data from another VC
         self.riders = riders
         self.price = price
@@ -82,10 +79,10 @@ class TripCompletionVC: UIViewController {
     
         fullDate = formattedDate
     }
-    
 }
 
-extension TripCompletionVC { //Core Data
+//Core Data
+extension TripCompletionVC {
     
     func saveTrip() {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
@@ -104,7 +101,7 @@ extension TripCompletionVC { //Core Data
         
         do {
             try managedContext.save()
-            tripDetails.append(tripCompleted) //add it to array
+            tripDetails.append(tripCompleted) 
             print("save trip completed Success")
         } catch {
             print("Could not save. \(error.localizedDescription)")

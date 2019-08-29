@@ -1,10 +1,3 @@
-//
-//  TripsCell.swift
-//  Uber
-//
-//  Created by Johnny Perdomo on 7/6/18.
-//  Copyright © 2018 Johnny Perdomo. All rights reserved.
-//
 
 import UIKit
 
