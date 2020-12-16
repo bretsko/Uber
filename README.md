@@ -1,6 +1,10 @@
 # Uber
 iOS Ride-Sharing App written in Swift 4 Using Map Kit and Core Data 
 
+# Preview
+![Alt Text](https://media.giphy.com/media/KGwtAaaBrPEbJJNZ9b/giphy.gif) ![Alt Text](https://media.giphy.com/media/LMEyEIc3mvsjTBsi4D/giphy.gif)  ![Alt Text](https://media.giphy.com/media/Lo7ECaKBZ7y3YuUctj/giphy.gif) 
+
+
 **Built with**
 - Ios 11.4
 - Xcode 9.4 
